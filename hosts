@@ -1,0 +1,8 @@
+[g14]
+localhost ansible_host=localhost ansible_connection=local ansible_python_interpreter=/usr/bin/python3
+
+[workstation]
+localhost ansbile_host=localhost ansbile_connection=local ansible_python_interpreter=/usr/bin/python3
+
+[vm]
+192.168.122.137 ansbile_host=archsible ansible_python_interpreter=/usr/bin/python3

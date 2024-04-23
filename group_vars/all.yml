@@ -1,0 +1,8 @@
+---
+
+# G14 RELATED VARS
+rog_gui: false
+custom_kernel: false
+
+# DOT RELATED VARS
+backup_config_folder: false

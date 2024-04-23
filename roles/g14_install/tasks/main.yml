@@ -1,0 +1,62 @@
+---
+
+- name: Add the g14-repo sign key
+  community.general.pacman_key:
+    id: 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
+    keyserver: "hkp://keyserver.ubuntu.com"
+
+- name: Add g14-repo to /etc/pacman.conf
+  blockinfile:
+    path: /etc/pacman.conf
+    block: |
+      # g14 repo
+      [g14]
+      Server = https://arch.asus-linux.org
+    insertafter: EOF
+    marker: ""
+
+- name: Upadate pacman cache and upgrade all packages
+  pacman:
+    update_cache: true
+    upgrade: true
+
+- name: Install g14 related packages
+  pacman:
+    name:
+      - asusctl
+      - power-profiles-daemon
+      - supergfxctl
+      - switcheroo-control
+    state: present
+
+- name: Enable power-profiles-daemon service
+  service:
+    name: power-profiles-daemon
+    enabled: yes
+
+- name: Enable supergfxd service
+  service:
+    name: supergfxd
+    enabled: yes
+
+- name: Enable switcheroo-control service
+  service:
+    name: switcheroo-control
+    enabled: yes
+
+- name: Include custom-kernel tasks
+  include_tasks: custom_kernel.yml
+  when: custom_kernel | default(false)
+
+- name: Install rog-gui package
+  pacman:
+    name:
+      - rog-control-center
+    state: present
+  when: rog_gui | default(false)
+
+- name: Display reboot message
+  debug:
+    msg: "You need to reboot your PC"
+
+

@@ -1,0 +1,7 @@
+---
+
+- name: Run g14_install role
+  hosts: vm
+  become: yes
+  roles:
+    - g14_install

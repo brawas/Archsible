@@ -1,0 +1,16 @@
+---
+
+- name: Update pacman package cache
+  pacman:
+    update_cache: yes
+
+- name: Install linux-g14 and linux-g14-headers packages
+  pacman:
+    name:
+      - linux-g14
+      - linux-g14-headers
+    state: present
+
+- name: Generate grub configuration
+  shell:
+    cmd: grub-mkconfig -o /boot/grub/grub.cfg
